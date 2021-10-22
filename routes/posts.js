@@ -20,22 +20,39 @@ router.get("/", async (req, res) => {
 
 // API:POST /posts/create
 router.post("/create", async (req, res) => {
-  let data = req.body;
-  let userId = data.userId;
-  let content = htmlEntities.encode(data.content, {
+  var data = req.body;
+  var userId = data.userId;
+  var content = htmlEntities.encode(data.content, {
     mode: "nonAsciiPrintable",
   });
-  let images = data.images;
+  var images = data.imageLinks;
   // console.log(content);
-  var sql = `INSERT INTO posts (user_id, content) VALUES ('${userId}', '${content}')`;
-  await mysql.db.query(sql, function (err, result) {
-    if (err) throw err;
-    // console.log(result);
-    res.json({
-      success: true,
-      message: "post created successfully",
+  var sqlPost = `INSERT INTO posts (user_id, content) VALUES ('${userId}', '${content}')`;
+  // const sqlImg = `INSERT INTO images (link, post_id) VALUES ('${data.images}', '${result.insert_id}')`;
+
+  const savePost = new Promise((resolve, reject) => {
+    mysql.db.query(sqlPost, function (err, result) {
+      if (err) reject(err);
+      resolve(result);
     });
   });
+  savePost
+    .then((result) => {
+      var sqlImg = `INSERT INTO images (link, post_id) VALUES ('${images}', '${result.insertId}')`;
+      if (images) {
+        mysql.db.query(sqlImg, function (err, result) {
+          if (err) reject(err);
+          res.json({
+            success: true,
+            message: "create post successful",
+          });
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
   //   {
   //     user: {
   //       userId: 1,
