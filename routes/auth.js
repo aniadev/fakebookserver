@@ -5,21 +5,38 @@ const jwt = require("jsonwebtoken");
 const SECRET_KEY = process.env.ACCESS_TOKEN_SECRET;
 
 // https://fakebook.com:8080/auth/
-router.get("/", (req, res) => {
+router.post("/", async (req, res) => {
   const [type, accessToken] = [...req.headers.authorization.split(" ")];
   try {
     let jwt_decoded = jwt.verify(accessToken, SECRET_KEY);
     // console.log(jwt_decoded);
-    res.json({
-      success: true,
-      method: "GET",
-      message: "authenticated",
-    });
+    const queryFields = "user_id, username, name, email, avatar";
+    await mysql.db.query(
+      `SELECT ${queryFields} FROM users WHERE username = '${jwt_decoded.username}'`,
+      function (error, result, fields) {
+        if (error) console.log("Query error: " + error);
+        const userData = {
+          userId: result[0].user_id,
+          username: result[0].username,
+          name: result[0].name,
+          avatar: result[0].avatar,
+          email: result[0].email,
+        };
+        let accessToken = jwt.sign(userData, SECRET_KEY);
+        res.json({
+          success: true,
+          method: "POST",
+          message: "authenticated",
+          userData,
+          accessToken,
+        });
+      }
+    );
   } catch (error) {
     console.log("Parse error: " + error);
     res.json({
       success: false,
-      method: "GET",
+      method: "POST",
       message: "invalid token",
     });
   }
@@ -28,8 +45,8 @@ router.get("/", (req, res) => {
 // https://fakebook.com:8080/auth/login
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
-  const queryFields = "user_id, username, name, email, avatar";
-
+  // console.log({ username, password });
+  const queryFields = "user_id, username, name, avatar, email";
   await mysql.db.query(
     `SELECT ${queryFields} FROM users WHERE username = '${username}' AND password = '${password}'`,
     function (err, result, fields) {
@@ -54,7 +71,7 @@ router.post("/login", async (req, res) => {
         });
       } else {
         res.json({
-          success: true,
+          success: false,
           message: "wrong username or password",
         });
       }

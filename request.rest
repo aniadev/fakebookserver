@@ -1,6 +1,6 @@
-GET http://localhost:8080/
+POST http://localhost:8080/auth
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImF2YXRhciI6Imh0dHBzOi8vcGJzLnR3aW1nLmNvbS9wcm9maWxlX2ltYWdlcy8xMDQ1NjgwNzY5MDQwMTAxMzc2L3Zva0VGZ1NTXzQwMHg0MDAuanBnIiwiZW1haWwiOiIiLCJpYXQiOjE2MzUwNzg1Mzl9.x-iBmcuR-H_oCdk5_agmCSu1RG9OYJDqLT6STGadXrg
 ############
 POST http://localhost:8080/auth/login
 Content-Type: application/json
@@ -22,7 +22,7 @@ Content-Type: application/json
 }
 
 ############
-GET http://localhost:8080/posts
+GET http://localhost:8080/posts?localhost:8080/posts?_limit=10&_offset=5
 Content-Type: application/json
 
 {
@@ -39,3 +39,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZ
     "content" : "new post"
     
 }
+
+############
+GET http://localhost:8080/user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o

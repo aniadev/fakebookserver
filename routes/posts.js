@@ -6,9 +6,11 @@ const htmlEntities = require("html-entities");
 // API:GET /posts
 router.get("/", async (req, res) => {
   //   console.log(req.query);
+  const limit = req.query._limit || 10;
+  const offset = req.query._offset || 0;
   const queryFields =
     "posts.post_id AS postId,posts.user_id AS userId, avatar, content, likes, comments, time, name, images.link AS image";
-  const sql = `SELECT ${queryFields} FROM posts JOIN users ON posts.user_id = users.user_id LEFT JOIN images ON posts.post_id = images.post_id WHERE posts.deleted = 0`;
+  const sql = `SELECT ${queryFields} FROM posts JOIN users ON posts.user_id = users.user_id LEFT JOIN images ON posts.post_id = images.post_id WHERE posts.deleted = 0 LIMIT ${limit} OFFSET ${offset}`;
   await mysql.db.query(sql, function (err, postList, fields) {
     if (err) throw err;
     res.json({
@@ -50,7 +52,7 @@ router.post("/create", async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
+      console.log("🚀 ~ file: posts.js ~ line 53 ~ router.post ~ err", err);
     });
 
   //   {
