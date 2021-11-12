@@ -13,7 +13,8 @@ async function connect() {
   try {
     db.connect((err) => {
       if (err) {
-        console.log(err);
+        console.log("🚀 ~ file: index.js ~ line 16 ~ db.connect ~ err", err);
+        return;
       } else {
         console.log("Connected!");
       }

@@ -21,26 +21,42 @@ Content-Type: application/json
     "email" : ""
 }
 
-############
-GET http://localhost:8080/posts?localhost:8080/posts?_limit=10&_offset=5
+
+############ USER API
+GET http://localhost:8080/user?_id=10
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
 
-{
-
-}
 
 ############
+GET http://localhost:8080/user/posts?_id=4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
+
+############ POST API
+GET http://localhost:8080/posts?_page=3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
+
+
+############ 
 POST http://localhost:8080/posts/create
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
 
 {
-    "userId" : "1",
-    "content" : "new post"
-    
+    "content" : "new post",
+    "imageLinks" : ""
 }
 
-############
-GET http://localhost:8080/user
+#############
+POST http://localhost:8080/posts/delete
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
+
+{
+    "postId": "49"
+}
+
+################################################################
+GET http://localhost:8080/test
