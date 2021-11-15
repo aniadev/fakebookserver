@@ -14,7 +14,7 @@ router.get("/", Auth, async (req, res) => {
     const queryFields =
       "posts.post_id AS postId,posts.user_id AS userId, avatar, content, likes, comments, time, name, users.blue_tick AS blueTick, images.link AS image";
     const sql = `SELECT ${queryFields} FROM posts JOIN users ON posts.user_id = users.user_id LEFT JOIN images ON posts.post_id = images.post_id WHERE posts.deleted = 0 ORDER BY time DESC LIMIT ${limit} OFFSET ${offset}`;
-    await mysql.db.query(sql, function (error, postList, fields) {
+    mysql.db.query(sql, function (error, postList, fields) {
       if (error) throw error;
       res.json({
         success: true,

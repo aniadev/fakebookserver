@@ -2,7 +2,7 @@ POST http://anicorp.tk:8599/auth
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImF2YXRhciI6Imh0dHBzOi8vcGJzLnR3aW1nLmNvbS9wcm9maWxlX2ltYWdlcy8xMDQ1NjgwNzY5MDQwMTAxMzc2L3Zva0VGZ1NTXzQwMHg0MDAuanBnIiwiZW1haWwiOiIiLCJpYXQiOjE2MzUwNzg1Mzl9.x-iBmcuR-H_oCdk5_agmCSu1RG9OYJDqLT6STGadXrg
 ############
-POST http://localhost:8080/auth/login
+POST http://localhost:8599/auth/login
 Content-Type: application/json
 
 {
@@ -11,7 +11,7 @@ Content-Type: application/json
 }
 
 ############
-POST http://localhost:8080/auth/register
+POST http://localhost:8599/auth/register
 Content-Type: application/json
 
 {
@@ -23,24 +23,24 @@ Content-Type: application/json
 
 
 ############ USER API
-GET http://localhost:8080/user?_id=10
+GET http://localhost:8599/user?_id=10
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
 
 
 ############
-GET http://localhost:8080/user/posts?_id=4
+GET http://localhost:8599/user/posts?_id=4
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
 
 ############ POST API
-GET http://localhost:8080/posts?_page=3
+GET http://localhost:8599/posts?_page=3
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
 
 
 ############ 
-POST http://localhost:8080/posts/create
+POST http://localhost:8599/posts/create
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
 
@@ -50,12 +50,27 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZ
 }
 
 #############
-POST http://localhost:8080/posts/delete
+POST http://localhost:8599/posts/delete
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
 
 {
     "postId": "49"
+}
+
+############# POST ############# 
+GET http://localhost:8599/post/103
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
+
+
+#############
+POST http://localhost:8599/post/103/cmt
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
+
+{
+    "comment": "This is a comment"
 }
 
 ################################################################
