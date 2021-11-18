@@ -192,13 +192,19 @@ router.post("/:id/react", Auth, async (req, res) => {
               return sqlQuery(insertSql);
             }
           })
-          .then((insertResult) => {
-            if (insertResult) {
-              res.json({
-                success: true,
-                message: "React successful",
-              });
-            }
+          .then(() => {
+            let counterLikeSql = `SELECT like_id AS likeId FROM like_table WHERE post_id = ${postId}`;
+            return sqlQuery(counterLikeSql);
+          })
+          .then((counterResult) => {
+            let updatePostSql = `UPDATE posts SET likes = ${counterResult.length} WHERE post_id = ${postId}`;
+            return sqlQuery(updatePostSql);
+          })
+          .then(() => {
+            res.json({
+              success: true,
+              message: "React successful",
+            });
           })
           .catch((err) => {
             res.json({
@@ -232,13 +238,21 @@ router.post("/:id/react", Auth, async (req, res) => {
               return true;
             }
           })
-          .then((insertResult) => {
-            if (insertResult) {
+          .then((deleteResult) => {
+            if (deleteResult) {
               res.json({
                 success: true,
                 message: "unReact successful",
               });
             }
+          })
+          .then(() => {
+            let counterLikeSql = `SELECT like_id AS likeId FROM like_table WHERE post_id = ${postId}`;
+            return sqlQuery(counterLikeSql);
+          })
+          .then((counterResult) => {
+            let updatePostSql = `UPDATE posts SET likes = ${counterResult.length} WHERE post_id = ${postId}`;
+            return sqlQuery(updatePostSql);
           })
           .catch((err) => {
             res.json({
