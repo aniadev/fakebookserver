@@ -6,7 +6,7 @@ POST http://localhost:8599/auth/login
 Content-Type: application/json
 
 {
-    "username" : "maria",
+    "username" : "phamhai",
     "password" : "abcabc"
 }
 
@@ -25,24 +25,24 @@ Content-Type: application/json
 ############ USER API
 GET http://localhost:8599/user?_id=10
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoicGhhbWhhaSIsIm5hbWUiOiJQaOG6oW0gQ8O0bmcgSOG6o2kiLCJhdmF0YXIiOiJodHRwczovL2kuaWJiLmNvL1d2alNSalgvZDNjZTVlMzE4MzE5LmpwZyIsImVtYWlsIjoicGhhbWhhaUBnbWFpbC5jb20iLCJibHVlVGljayI6MSwiaWF0IjoxNjM3MjA3MTY5fQ.jv1LzUwteSqWPzcNTU0Als1CwBAKkBYVojyqHQhmdmk
 
 
 ############
-GET http://localhost:8599/user/posts?_id=4
+GET http://localhost:8599/user/posts?_id=10
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoicGhhbWhhaSIsIm5hbWUiOiJQaOG6oW0gQ8O0bmcgSOG6o2kiLCJhdmF0YXIiOiJodHRwczovL2kuaWJiLmNvL1d2alNSalgvZDNjZTVlMzE4MzE5LmpwZyIsImVtYWlsIjoicGhhbWhhaUBnbWFpbC5jb20iLCJibHVlVGljayI6MSwiaWF0IjoxNjM3MjA3MTY5fQ.jv1LzUwteSqWPzcNTU0Als1CwBAKkBYVojyqHQhmdmk
 
 ############ POST API
-GET http://localhost:8599/posts?_page=3
+GET http://localhost:8599/posts?_page=1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoicGhhbWhhaSIsIm5hbWUiOiJQaOG6oW0gQ8O0bmcgSOG6o2kiLCJhdmF0YXIiOiJodHRwczovL2kuaWJiLmNvL1d2alNSalgvZDNjZTVlMzE4MzE5LmpwZyIsImVtYWlsIjoicGhhbWhhaUBnbWFpbC5jb20iLCJibHVlVGljayI6MSwiaWF0IjoxNjM3MjA3MTY5fQ.jv1LzUwteSqWPzcNTU0Als1CwBAKkBYVojyqHQhmdmk
 
 
 ############ 
 POST http://localhost:8599/posts/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoicGhhbWhhaSIsIm5hbWUiOiJQaOG6oW0gQ8O0bmcgSOG6o2kiLCJhdmF0YXIiOiJodHRwczovL2kuaWJiLmNvL1d2alNSalgvZDNjZTVlMzE4MzE5LmpwZyIsImVtYWlsIjoicGhhbWhhaUBnbWFpbC5jb20iLCJibHVlVGljayI6MSwiaWF0IjoxNjM3MjA3MTY5fQ.jv1LzUwteSqWPzcNTU0Als1CwBAKkBYVojyqHQhmdmk
 
 {
     "content" : "new post",
@@ -52,7 +52,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZ
 #############
 POST http://localhost:8599/posts/delete
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoicGhhbWhhaSIsIm5hbWUiOiJQaOG6oW0gQ8O0bmcgSOG6o2kiLCJhdmF0YXIiOiJodHRwczovL2kuaWJiLmNvL1d2alNSalgvZDNjZTVlMzE4MzE5LmpwZyIsImVtYWlsIjoicGhhbWhhaUBnbWFpbC5jb20iLCJibHVlVGljayI6MSwiaWF0IjoxNjM3MjA3MTY5fQ.jv1LzUwteSqWPzcNTU0Als1CwBAKkBYVojyqHQhmdmk
 
 {
     "postId": "49"
@@ -61,19 +61,29 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZ
 ############# POST ############# 
 GET http://localhost:8599/post/103
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoicGhhbWhhaSIsIm5hbWUiOiJQaOG6oW0gQ8O0bmcgSOG6o2kiLCJhdmF0YXIiOiJodHRwczovL2kuaWJiLmNvL1d2alNSalgvZDNjZTVlMzE4MzE5LmpwZyIsImVtYWlsIjoicGhhbWhhaUBnbWFpbC5jb20iLCJibHVlVGljayI6MSwiaWF0IjoxNjM3MjA3MTY5fQ.jv1LzUwteSqWPzcNTU0Als1CwBAKkBYVojyqHQhmdmk
 
 
 #############
 POST http://localhost:8599/post/103/cmt
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoicGhhbWhhaSIsIm5hbWUiOiJQaOG6oW0gQ8O0bmcgSOG6o2kiLCJhdmF0YXIiOiJodHRwczovL2kuaWJiLmNvL1d2alNSalgvZDNjZTVlMzE4MzE5LmpwZyIsImVtYWlsIjoicGhhbWhhaUBnbWFpbC5jb20iLCJibHVlVGljayI6MSwiaWF0IjoxNjM3MjA3MTY5fQ.jv1LzUwteSqWPzcNTU0Als1CwBAKkBYVojyqHQhmdmk
+
+# {
+#     "comment": "This is a comment ahihi đồ ngốc"
+# }
+
+#############
+POST http://localhost:8599/post/103/react
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoicGhhbWhhaSIsIm5hbWUiOiJQaOG6oW0gQ8O0bmcgSOG6o2kiLCJhdmF0YXIiOiJodHRwczovL2kuaWJiLmNvL1d2alNSalgvZDNjZTVlMzE4MzE5LmpwZyIsImVtYWlsIjoicGhhbWhhaUBnbWFpbC5jb20iLCJibHVlVGljayI6MSwiaWF0IjoxNjM3MjA3MTY5fQ.jv1LzUwteSqWPzcNTU0Als1CwBAKkBYVojyqHQhmdmk
 
 {
-    "comment": "This is a comment ahihi đồ ngốc"
+    "type": "react",
+    "action": "like"
 }
 
 ################################################################
 GET http://anicorp.tk:8599/user?_id=2
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoibWFyaWEiLCJuYW1lIjoiTWFyaWEgSGlsbCIsImVtYWlsIjoiIiwiYXZhdGFyIjoiaHR0cHM6Ly9pLmliYi5jby9INFdIbXNuL2RlZmF1bHQtYXZhdGFyLnBuZyIsImlhdCI6MTYzNDgwNDE3Mn0.Js0SAriUoVpbJ2O1pinbbklnvZe9dt5p8Re97pxfF4o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoicGhhbWhhaSIsIm5hbWUiOiJQaOG6oW0gQ8O0bmcgSOG6o2kiLCJhdmF0YXIiOiJodHRwczovL2kuaWJiLmNvL1d2alNSalgvZDNjZTVlMzE4MzE5LmpwZyIsImVtYWlsIjoicGhhbWhhaUBnbWFpbC5jb20iLCJibHVlVGljayI6MSwiaWF0IjoxNjM3MjA3MTY5fQ.jv1LzUwteSqWPzcNTU0Als1CwBAKkBYVojyqHQhmdmk

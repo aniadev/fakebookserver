@@ -8,12 +8,13 @@ const Auth = require("../middleware/Auth");
 router.get("/", Auth, async (req, res) => {
   //   console.log(req.query);
   try {
+    const userId = req.userId;
     const page = req.query._page > 0 ? req.query._page - 1 : 0;
     const limit = req.query._limit || 10;
     const offset = req.query._offset || page * limit || 0;
     const queryFields =
-      "posts.post_id AS postId,posts.user_id AS userId, avatar, content, likes, comments, time, name, users.blue_tick AS blueTick, images.link AS image";
-    const sql = `SELECT ${queryFields} FROM posts JOIN users ON posts.user_id = users.user_id LEFT JOIN images ON posts.post_id = images.post_id WHERE posts.deleted = 0 ORDER BY time DESC LIMIT ${limit} OFFSET ${offset}`;
+      "posts.post_id AS postId,posts.user_id AS userId, avatar, content, likes, comments, posts.time, name, users.blue_tick AS blueTick, images.link AS image, like_table.like_id AS likeId";
+    const sql = `SELECT ${queryFields} FROM posts JOIN users ON posts.user_id = users.user_id LEFT JOIN images ON posts.post_id = images.post_id LEFT JOIN like_table ON like_table.user_id = ${userId} AND like_table.post_id = posts.post_id WHERE posts.deleted = 0 ORDER BY time DESC LIMIT ${limit} OFFSET ${offset}`;
     mysql.db.query(sql, function (error, postList, fields) {
       if (error) throw error;
       res.json({

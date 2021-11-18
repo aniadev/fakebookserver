@@ -16,6 +16,29 @@ const sqlQuery = function (sql) {
   });
 };
 
+function makeNotification(
+  notiType = "GENERAL",
+  notiMessage = "GENERAL message",
+  userId
+) {
+  if (!userId) {
+    return {
+      success: false,
+      message: "Empty user ID",
+    };
+  }
+  return sqlQuery(`SELECT * FROM notifications ORDER BY time DESC`)
+    .then((result) => {
+      return {
+        success: true,
+        result,
+      };
+    })
+    .catch((err) => {
+      return err;
+    });
+}
+
 // API:GET /post/:id
 router.get("/:id", Auth, (req, res) => {
   //   console.log(req.query);
@@ -23,6 +46,7 @@ router.get("/:id", Auth, (req, res) => {
     success: true,
     postData: {},
     allComments: [],
+    reactors: [],
   };
   try {
     let postId = req.params.id;
@@ -38,7 +62,7 @@ router.get("/:id", Auth, (req, res) => {
         if (postData[0]) {
           // query comments
           response = { ...response, postData: { ...postData[0] } };
-          if (postData[0].comments) {
+          if (response.postData.comments) {
             let sqlCmt = `SELECT cmt_id AS cmtId, post_id AS postId, cmt_content AS cmtContent, comment_table.user_id AS userCmtId, users.name, users.avatar,users.blue_tick AS blueTick, time AS cmtTime FROM comment_table LEFT JOIN users ON comment_table.user_id = users.user_id WHERE post_id = ${postId} AND deleted = 0 ORDER BY time DESC`; // AND deleted = 0
             return sqlQuery(sqlCmt);
           }
@@ -47,7 +71,18 @@ router.get("/:id", Auth, (req, res) => {
         }
       })
       .then((allComments) => {
-        response = { ...response, allComments };
+        // get all comments
+        allComments ? ([...response.allComments] = allComments) : false;
+        if (response.postData.likes) {
+          let reactSql = `SELECT user_id FROM like_table WHERE post_id = ${postId} ORDER BY time DESC LIMIT 20`;
+          return sqlQuery(reactSql);
+        }
+      })
+      .then((allReacts) => {
+        if (allReacts)
+          allReacts.map((react) => {
+            response.reactors.push(react.user_id);
+          });
         res.json(response);
       })
       .catch((err) => {
@@ -73,9 +108,15 @@ router.post("/:id/cmt", Auth, async (req, res) => {
   };
   try {
     let postId = req.params.id;
+    if (isNaN(postId)) {
+      throw Error("post invalid");
+    }
     let comment = htmlEntities.encode(req.body.comment, {
       mode: "nonAsciiPrintable", // get raw text/html
     });
+    if (!comment) {
+      throw Error("comment invalid");
+    }
     let userId = req.userId; // userId comments at postId with data
 
     let sqlFindPost = `SELECT post_id AS postId, comments FROM posts WHERE post_id = ${postId}`;
@@ -110,6 +151,112 @@ router.post("/:id/cmt", Auth, async (req, res) => {
         });
       });
   } catch (error) {
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+// API:POST /post/:id/react
+router.post("/:id/react", Auth, async (req, res) => {
+  try {
+    let postId = req.params.id;
+    if (isNaN(postId)) {
+      throw Error("post invalid");
+    }
+    let userId = req.userId;
+    let reactType = req.body.type; // react
+    let action = req.body.action; // like/unlike
+
+    switch (action) {
+      case "like": {
+        let checkExistPost = `SELECT post_id AS postId FROM posts WHERE post_id = ${postId}`;
+        sqlQuery(checkExistPost)
+          .then((result) => {
+            if (result[0]) {
+              return result[0];
+            } else {
+              throw Error("404 not found");
+            }
+          })
+          .then((result) => {
+            let postId = result.postId;
+            let checkExistReact = `SELECT like_id AS likeId FROM like_table WHERE post_id = ${postId} AND user_id = ${userId}`;
+            return sqlQuery(checkExistReact);
+          })
+          .then((existResult) => {
+            if (existResult[0]) {
+              return true;
+            } else {
+              let insertSql = `INSERT INTO like_table (user_id, post_id) VALUES ('${userId}', '${postId}')`;
+              return sqlQuery(insertSql);
+            }
+          })
+          .then((insertResult) => {
+            if (insertResult) {
+              res.json({
+                success: true,
+                message: "React successful",
+              });
+            }
+          })
+          .catch((err) => {
+            res.json({
+              success: false,
+              message: err.message,
+            });
+          });
+        break;
+      }
+      case "unlike": {
+        let checkExistPost = `SELECT post_id AS postId FROM posts WHERE post_id = ${postId}`;
+        sqlQuery(checkExistPost)
+          .then((result) => {
+            if (result[0]) {
+              return result[0];
+            } else {
+              throw Error("404 not found");
+            }
+          })
+          .then((result) => {
+            let postId = result.postId;
+            let checkExistReact = `SELECT like_id AS likeId FROM like_table WHERE post_id = ${postId} AND user_id = ${userId}`;
+            return sqlQuery(checkExistReact);
+          })
+          .then((existResult) => {
+            if (existResult[0]) {
+              let likeId = existResult[0].likeId;
+              let deleteSql = `DELETE FROM like_table WHERE like_id = ${likeId}`;
+              return sqlQuery(deleteSql);
+            } else {
+              return true;
+            }
+          })
+          .then((insertResult) => {
+            if (insertResult) {
+              res.json({
+                success: true,
+                message: "unReact successful",
+              });
+            }
+          })
+          .catch((err) => {
+            res.json({
+              success: false,
+              message: err.message,
+            });
+          });
+        break;
+      }
+      default: {
+        res.json({
+          success: false,
+          message: "action invalid",
+        });
+      }
+    }
+  } catch (error) {
+    console.log(error.message);
     res.json({
       success: false,
       message: error.message,
