@@ -1,21 +1,21 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const mysql = require("../config/mysql");
-const jwt = require("jsonwebtoken");
+const mysql = require('../config/mysql');
+const jwt = require('jsonwebtoken');
 const SECRET_KEY = process.env.ACCESS_TOKEN_SECRET;
-const Auth = require("../middleware/Auth");
+const Auth = require('../middleware/Auth');
 
 // https://fakebook.com:8080/auth/
-router.post("/", Auth, async (req, res) => {
+router.post('/', Auth, async (req, res) => {
   try {
-    const [type, accessToken] = [...req.headers.authorization.split(" ")];
+    const [type, accessToken] = [...req.headers.authorization.split(' ')];
     let jwt_decoded = jwt.verify(accessToken, SECRET_KEY);
     // console.log(jwt_decoded);
-    const queryFields = "user_id, username, name, email, avatar, blue_tick";
+    const queryFields = 'user_id, username, name, email, avatar, blue_tick';
     await mysql.db.query(
       `SELECT ${queryFields} FROM users WHERE username = '${jwt_decoded.username}'`,
       function (error, result, fields) {
-        if (error) console.log("Query error: " + error);
+        if (error) console.log('Query error: ' + error);
         const userData = {
           userId: result[0].user_id,
           username: result[0].username,
@@ -27,30 +27,30 @@ router.post("/", Auth, async (req, res) => {
         let accessToken = jwt.sign(userData, SECRET_KEY);
         res.json({
           success: true,
-          method: "POST",
-          message: "authenticated",
+          method: 'POST',
+          message: 'authenticated',
           userData,
           accessToken,
         });
       }
     );
   } catch (error) {
-    console.log("Parse error: " + error);
+    console.log('Parse error: ' + error);
     res.json({
       success: false,
       status: 401,
-      method: "POST",
-      message: "invalid token",
+      method: 'POST',
+      message: 'invalid token',
     });
   }
 });
 
 // https://fakebook.com:8080/auth/login
-router.post("/login", async (req, res) => {
+router.post('/login', async (req, res) => {
   const { username, password } = req.body;
   // console.log({ username, password });
   const queryFields =
-    "user_id, username, name, avatar, email, blue_tick AS blueTick";
+    'user_id, username, name, avatar, email, blue_tick AS blueTick';
   try {
     mysql.db.query(
       `SELECT ${queryFields} FROM users WHERE username = ${mysql.db.escape(
@@ -70,15 +70,15 @@ router.post("/login", async (req, res) => {
           let accessToken = jwt.sign(userData, SECRET_KEY);
           res.json({
             success: true,
-            message: "login successful",
+            message: 'login successful',
             accessToken,
-            type: "Bearer",
+            type: 'Bearer',
             userData,
           });
         } else {
           res.json({
             success: false,
-            message: "wrong username or password",
+            message: 'wrong username or password',
           });
         }
       }
@@ -92,14 +92,14 @@ router.post("/login", async (req, res) => {
 });
 
 // https://fakebook.com:8080/auth/register
-router.post("/register", async (req, res) => {
+router.post('/register', async (req, res) => {
   const regData = req.body;
   let { username, password, name } = regData;
 
   if (!username || !password || !name) {
     res.json({
       success: false,
-      message: "invalid fields",
+      message: 'invalid fields',
     });
   } else {
     try {
@@ -120,13 +120,13 @@ router.post("/register", async (req, res) => {
               console.log(result);
               res.json({
                 success: true,
-                message: "register successful",
+                message: 'register successful',
               });
             });
           } else {
             res.json({
               success: false,
-              message: "invalid username",
+              message: 'invalid username',
             });
           }
         }

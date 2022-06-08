@@ -19,9 +19,9 @@ router.get("/test", (req, res) => {
     res.json({
       success: true,
       message: "test",
-      timeout: "5000 ms",
+      timeout: "100 ms",
     });
-  }, 5000);
+  }, 100);
 });
 
 module.exports = router;

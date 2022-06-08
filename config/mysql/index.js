@@ -23,4 +23,17 @@ async function connect() {
     console.log("Error connecting mysql: " + error);
   }
 }
+
+const sqlQuery = function (sql) {
+  return new Promise(function (resolve, reject) {
+    mysql.db.query(sql, function (error, result, fields) {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
 module.exports = { connect, db };
