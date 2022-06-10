@@ -15,7 +15,15 @@ router.post('/', Auth, async (req, res) => {
     await mysql.db.query(
       `SELECT ${queryFields} FROM users WHERE username = '${jwt_decoded.username}'`,
       function (error, result, fields) {
-        if (error) console.log('Query error: ' + error);
+        if (error || !result[0]) {
+          res.json({
+            success: false,
+            status: 401,
+            method: 'POST',
+            message: 'invalid token',
+          });
+          return false;
+        }
         const userData = {
           userId: result[0].user_id,
           username: result[0].username,
@@ -57,7 +65,13 @@ router.post('/login', async (req, res) => {
         username
       )} AND password = ${mysql.db.escape(password)}`,
       function (err, result) {
-        if (err) throw err;
+        if (err) {
+          console.log(err.message);
+          res.json({
+            success: false,
+            message: err.message,
+          });
+        }
         if (result[0]) {
           const userData = {
             userId: result[0].user_id,
