@@ -1,8 +1,8 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const mysql = require("../config/mysql");
-const htmlEntities = require("html-entities");
-const Auth = require("../middleware/Auth");
+const mysql = require('../config/mysql');
+const htmlEntities = require('html-entities');
+const Auth = require('../middleware/Auth');
 
 const sqlQuery = function (sql) {
   return new Promise(function (resolve, reject) {
@@ -17,14 +17,14 @@ const sqlQuery = function (sql) {
 };
 
 function makeNotification(
-  notiType = "GENERAL",
-  notiMessage = "GENERAL message",
+  notiType = 'GENERAL',
+  notiMessage = 'GENERAL message',
   userId
 ) {
   if (!userId) {
     return {
       success: false,
-      message: "Empty user ID",
+      message: 'Empty user ID',
     };
   }
   return sqlQuery(`SELECT * FROM notifications ORDER BY time DESC`)
@@ -40,7 +40,7 @@ function makeNotification(
 }
 
 // API:GET /post/:id
-router.get("/:id", Auth, (req, res) => {
+router.get('/:id', Auth, (req, res) => {
   //   console.log(req.query);
   var response = {
     success: true,
@@ -51,10 +51,10 @@ router.get("/:id", Auth, (req, res) => {
   try {
     let postId = req.params.id;
     if (postId < 0 || isNaN(postId)) {
-      throw new Error("404 not found");
+      throw new Error('404 not found');
     }
     let queryFieldsPost =
-      "posts.post_id AS postId,posts.user_id AS userId, avatar, content, likes, comments, time, name, users.blue_tick AS blueTick, images.link AS image";
+      'posts.post_id AS postId,posts.user_id AS userId, avatar, content, likes, comments, time, name, users.blue_tick AS blueTick, images.link AS image';
     let sqlPost = `SELECT ${queryFieldsPost} FROM posts JOIN users ON posts.user_id = users.user_id LEFT JOIN images ON posts.post_id = images.post_id WHERE posts.post_id = ${postId} `; //AND posts.deleted = 0
 
     sqlQuery(sqlPost)
@@ -67,7 +67,7 @@ router.get("/:id", Auth, (req, res) => {
             return sqlQuery(sqlCmt);
           }
         } else {
-          throw Error("404 not found");
+          throw Error('404 not found');
         }
       })
       .then((allComments) => {
@@ -100,22 +100,22 @@ router.get("/:id", Auth, (req, res) => {
 });
 
 // API:POST /post/:id/cmt
-router.post("/:id/cmt", Auth, async (req, res) => {
+router.post('/:id/cmt', Auth, async (req, res) => {
   var response = {
     success: true,
-    message: "comment successful",
+    message: 'comment successful',
     cmtId: null,
   };
   try {
     let postId = req.params.id;
     if (isNaN(postId)) {
-      throw Error("post invalid");
+      throw Error('post invalid');
     }
     let comment = htmlEntities.encode(req.body.comment, {
-      mode: "nonAsciiPrintable", // get raw text/html
+      mode: 'nonAsciiPrintable', // get raw text/html
     });
     if (!comment) {
-      throw Error("comment invalid");
+      throw Error('comment invalid');
     }
     let userId = req.userId; // userId comments at postId with data
 
@@ -127,7 +127,7 @@ router.post("/:id/cmt", Auth, async (req, res) => {
         if (post[0]) {
           return sqlQuery(sqlInsertCmt);
         } else {
-          throw Error("404 not found");
+          throw Error('404 not found');
         }
       })
       .then((insertResult) => {
@@ -158,25 +158,25 @@ router.post("/:id/cmt", Auth, async (req, res) => {
   }
 });
 // API:POST /post/:id/react
-router.post("/:id/react", Auth, async (req, res) => {
+router.post('/:id/react', Auth, async (req, res) => {
   try {
     let postId = req.params.id;
     if (isNaN(postId)) {
-      throw Error("post invalid");
+      throw Error('post invalid');
     }
     let userId = req.userId;
     let reactType = req.body.type; // react
     let action = req.body.action; // like/unlike
 
     switch (action) {
-      case "like": {
+      case 'like': {
         let checkExistPost = `SELECT post_id AS postId FROM posts WHERE post_id = ${postId}`;
         sqlQuery(checkExistPost)
           .then((result) => {
             if (result[0]) {
               return result[0];
             } else {
-              throw Error("404 not found");
+              throw Error('404 not found');
             }
           })
           .then((result) => {
@@ -203,7 +203,7 @@ router.post("/:id/react", Auth, async (req, res) => {
           .then(() => {
             res.json({
               success: true,
-              message: "React successful",
+              message: 'React successful',
             });
           })
           .catch((err) => {
@@ -214,14 +214,14 @@ router.post("/:id/react", Auth, async (req, res) => {
           });
         break;
       }
-      case "unlike": {
+      case 'unlike': {
         let checkExistPost = `SELECT post_id AS postId FROM posts WHERE post_id = ${postId}`;
         sqlQuery(checkExistPost)
           .then((result) => {
             if (result[0]) {
               return result[0];
             } else {
-              throw Error("404 not found");
+              throw Error('404 not found');
             }
           })
           .then((result) => {
@@ -242,7 +242,7 @@ router.post("/:id/react", Auth, async (req, res) => {
             if (deleteResult) {
               res.json({
                 success: true,
-                message: "unReact successful",
+                message: 'unReact successful',
               });
             }
           })
@@ -265,7 +265,7 @@ router.post("/:id/react", Auth, async (req, res) => {
       default: {
         res.json({
           success: false,
-          message: "action invalid",
+          message: 'action invalid',
         });
       }
     }
